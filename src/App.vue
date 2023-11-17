@@ -2,32 +2,32 @@
   <v-app> 
     <v-main>
       <!-- компонент на всю ширину экрана с выравниванием по левому краю -->
-      <!-- <div class="container left">
+      <div class="container container--left">
         <tagList  
           :dataTags = tags
           :align = "'left'"
         />
-      </div> -->
+      </div>
       <!-- компонент на всю ширину экрана с выравниванием по ширине, -->
-      <div class="container wide">
+      <div class="container container--width">
         <tagList 
           :dataTags = tags
-          :align = "'wide'"
+          :align = "'width'"
         />
       </div>
       <div class="container">
         <!-- компонент на 50% ширины экрана с выравниванием по левому краю, -->       
-        <div class="container__item half-left">      
+        <div class="container__item container--half-left">      
           <tagList 
             :dataTags = tags
             :align = "'left'"
           />
         </div>
         <!-- компонент на 50% ширины экрана с выравниванием по ширине (можно на одной строке с предыдущим) -->
-        <div class="container__item half-wide right">
+        <div class="container__item container--half-width">
           <tagList 
             :dataTags = tags
-            :align = "'wide'"
+            :align = "'width'"
           />   
         </div>
       </div>
@@ -58,7 +58,11 @@ export default {
       },
       {
         text: "текст 3",
-        icon: "mdi-check-circle",
+        icon: "mdi-thumb-up",
+      },   
+      {
+        text: "текст 4",
+        icon: "mdi-cloud-upload",
       },
     ],
   }),

@@ -1,19 +1,17 @@
 <template>  
-  <v-list class="tag-list" :class="`tag-list--${$props.align}`" ref="listContainer">
-      <div v-for="(item, index) in listItems" :ref="setItemRef" :key="index">
-        <div v-if="shouldRenderItem(index)" :key="index">
-          <v-list-item class="tag-list__el" :key="index">
-            <v-icon v-if="item.icon">
-              {{item.icon}}
-            </v-icon>
-            {{ item.text }}
-          </v-list-item>
-          <v-icon class="tag-list__sep"
-              v-if="index < $props.dataTags.length - 1"
-              :key="`${index}-divider`"
-          >mdi-circle-small</v-icon>        
-        </div>
-      </div>
+  <v-list v-resize="setContainerWidth" class="tag-list" :class="`tag-list--${$props.align}`" ref="listContainer">
+      <template v-for="(item, index) in listItems" >
+        <v-list-item class="tag-list__el" v-if="shouldRenderItem(index)" :ref="setItemRef" :data-index="index" :key="index">
+          <v-icon v-if="item.icon">
+            {{item.icon}}
+          </v-icon>
+          {{ item.text }}
+        </v-list-item>
+        <v-icon class="tag-list__sep" ref="sepr"
+            v-if="index < $props.dataTags.length - 1 && shouldRenderItem(index+1)"
+            :key="`${index}-divider`"
+        >mdi-circle-small</v-icon>
+      </template>
   </v-list>
 </template>
 
@@ -25,7 +23,6 @@
       'align'
     ],
     data: () => ({ 
-      listContainer: [],
       listWidth: 0,
       listItems: [],
       containerWidth: 0,
@@ -36,21 +33,24 @@
     },  
     mounted() {
       this.$nextTick(() => {
-        if (this.$refs.container) {
-          this.containerWidth = this.$refs.container.clientWidth;
-          this.calculateItemWidths();
-        }
+        this.setContainerWidth()
+        this.calculateItemWidths();
       });
     },
     methods: {
+      setContainerWidth(){
+        if (this.$refs.listContainer) {
+          this.containerWidth = this.$refs.listContainer.$el.clientWidth;
+        }
+      },
       setItemRef(el) {
         if (el) {
-          this.$refs[el.getAttribute('data-index')] = el;
+          this.$refs[el.$attrs['data-index']] = el;
         }
       },
       calculateItemWidths() {
-        this.itemWidths = this.items.map((_, index) => {
-          return this.$refs[index].clientWidth;
+        this.itemWidths = this.listItems.map((_, index) => {
+          return this.$refs[index].$el.clientWidth + 24;
         });
       },
       shouldRenderItem(index) {
@@ -63,27 +63,6 @@
         }
         return true;
       }
-      // calcListWidth(){
-      //   this.listContainer = document.querySelector('.tag-list'); //The list 
-      //   this.listItems  = document.querySelectorAll('.tag-list__el, .tag-list__sep'); //The list items
-      //   this.listWidth = 0
-      //   for(let i = 0; i < this.listItems.length; i++) {
-      //       this.listWidth += this.listItems[i].offsetWidth;            
-      //     if(this.listWidth > this.listContainer.offsetWidth) { 
-      //       console.log(this.listWidth + '>' + this.listContainer.offsetWidth)
-      //       this.listItems[i].style.display = 'none';
-      //     }         
-      //   }
-      // }
     }
   }
 </script>
-
-mounted() {
-  
-},
-methods: {
-  
-  
-  
-}
