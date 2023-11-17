@@ -2,14 +2,14 @@
   <v-app> 
     <v-main>
       <!-- компонент на всю ширину экрана с выравниванием по левому краю -->
-      <div class="container container--left">
+      <div class="container">
         <tagList  
           :dataTags = tags
           :align = "'left'"
         />
       </div>
       <!-- компонент на всю ширину экрана с выравниванием по ширине, -->
-      <div class="container container--width">
+      <div class="container">
         <tagList 
           :dataTags = tags
           :align = "'width'"
@@ -17,14 +17,14 @@
       </div>
       <div class="container">
         <!-- компонент на 50% ширины экрана с выравниванием по левому краю, -->       
-        <div class="container__item container--half-left">      
+        <div class="container__item">      
           <tagList 
             :dataTags = tags
             :align = "'left'"
           />
         </div>
         <!-- компонент на 50% ширины экрана с выравниванием по ширине (можно на одной строке с предыдущим) -->
-        <div class="container__item container--half-width">
+        <div class="container__item">
           <tagList 
             :dataTags = tags
             :align = "'width'"
